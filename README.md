@@ -30,6 +30,8 @@ To verify, list the services:
 ```
 gcloud services list
 ```
+Reference: [gcloud CLI cheat sheet](https://cloud.google.com/sdk/docs/cheatsheet)  
+
 <hr>
 
 ### 2. Access control with IAM
