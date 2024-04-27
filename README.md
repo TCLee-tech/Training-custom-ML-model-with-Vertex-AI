@@ -87,7 +87,7 @@ Reference:
   - [Discover object storage with the gcloud tool](https://cloud.google.com/storage/docs/discover-object-storage-gcloud)
   - [gcloud storage cp](https://cloud.google.com/sdk/gcloud/reference/storage/cp)
 
-### Step 3: Write training code
+#### Step 3: Write training code
 Create new directory called `flowers` and change to this directory:
 ```
 mkdir flowers
@@ -184,7 +184,9 @@ history = model.fit(
 
 # SAVE MODEL
 model.save(f'{BUCKET_ROOT}/model_output')
-```
+```   
+
+#### Step 4: Create Dockerfile  
 
 
 
