@@ -74,18 +74,118 @@ echo $BUCKET
 ```
 
 #### Step 2: Copy training dataset to Cloud Storage bucket
-In this exercise, a sample dataset of flower images is used. The tar file is downloaded and untar.
+In this exercise, a sample dataset of flower images is used. First, we download the tar file and untar it.
 ```
 wget https://storage.googleapis.com/download.tensorflow.org/example_images/flower_photos.tgz
 tar xvzf flower_photos.tgz
 ```
-Copy dataset to Cloud Storage bucket
+Then, copy the dataset from Cloud Shell to a Cloud Storage bucket
 ```
 gcloud storage cp --recursive flower_photos $BUCKET
 ```
 Reference:   
   - [Discover object storage with the gcloud tool](https://cloud.google.com/storage/docs/discover-object-storage-gcloud)
   - [gcloud storage cp](https://cloud.google.com/sdk/gcloud/reference/storage/cp)
+
+### Step 3: Write training code
+Create new directory called `flowers` and change to this directory:
+```
+mkdir flowers
+cd flowers
+```
+Create a `trainer` sub-directory and a `task.py` Python file where you'll add the code for training the custom model:
+```
+mkdir trainer
+touch trainer/task.py
+```
+Open `task.py` and paste the mode training code below.  
+You'll need to replace {your-gcs-bucket} with the name of the Cloud Storage bucket you just created.  
+```
+cd trainer
+nano task.py
+```
+Custom mode training code:
+```
+import tensorflow as tf
+import numpy as np
+import os
+
+## Replace {your-gcs-bucket} !!
+BUCKET_ROOT='/gcs/{your-gcs-bucket}'
+
+# Define variables
+NUM_CLASSES = 5
+EPOCHS=10
+BATCH_SIZE = 32
+
+IMG_HEIGHT = 180
+IMG_WIDTH = 180
+
+DATA_DIR = f'{BUCKET_ROOT}/flower_photos'
+
+def create_datasets(data_dir, batch_size):
+  '''Creates train and validation datasets.'''
+  
+  train_dataset = tf.keras.utils.image_dataset_from_directory(
+    data_dir,
+    validation_split=0.2,
+    subset="training",
+    seed=123,
+    image_size=(IMG_HEIGHT, IMG_WIDTH),
+    batch_size=batch_size)
+
+  validation_dataset = tf.keras.utils.image_dataset_from_directory(
+    data_dir,
+    validation_split=0.2,
+    subset="validation",
+    seed=123,
+    image_size=(IMG_HEIGHT, IMG_WIDTH),
+    batch_size=batch_size)
+
+  train_dataset = train_dataset.cache().shuffle(1000).prefetch(buffer_size=tf.data.AUTOTUNE)
+  validation_dataset = validation_dataset.cache().prefetch(buffer_size=tf.data.AUTOTUNE)
+
+  return train_dataset, validation_dataset
+
+
+def create_model():
+  '''Creates model.'''
+
+  model = tf.keras.Sequential([
+    tf.keras.layers.Resizing(IMG_HEIGHT, IMG_WIDTH),
+    tf.keras.layers.Rescaling(1./255, input_shape=(IMG_HEIGHT, IMG_WIDTH, 3)),
+    tf.keras.layers.Conv2D(16, 3, padding='same', activation='relu'),
+    tf.keras.layers.MaxPooling2D(),
+    tf.keras.layers.Conv2D(32, 3, padding='same', activation='relu'),
+    tf.keras.layers.MaxPooling2D(),
+    tf.keras.layers.Conv2D(64, 3, padding='same', activation='relu'),
+    tf.keras.layers.MaxPooling2D(),
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(NUM_CLASSES, activation='softmax')
+  ])
+  return model
+
+# CREATE DATASETS
+train_dataset, validation_dataset = create_datasets(DATA_DIR, BATCH_SIZE)
+
+# CREATE/COMPILE MODEL
+model = create_model()
+model.compile(optimizer=tf.keras.optimizers.Adam(),
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(),
+              metrics=['accuracy'])
+
+# TRAIN MODEL
+history = model.fit(
+  train_dataset,
+  validation_data=validation_dataset,
+  epochs=EPOCHS
+)
+
+# SAVE MODEL
+model.save(f'{BUCKET_ROOT}/model_output')
+```
+
 
 
 
