@@ -15,27 +15,11 @@ gcloud components update
 gcloud components list
 ```
 
-Next, check if the currently active Google Cloud account configured in the Google Cloud SDK Shell is the correct one to use for authentication:
+Next, initialize, configure and authorize the gcloud CLI:
 ```
-gcloud auth list
+gcloud init
 ```
-  - If you need to change to another Google Cloud account:
-```
-gcloud config set account 'ACCOUNT'
-```
-Also, check if the `project` property in the core section of the Cloud Shell is the correct one:
-```
-gcloud config list core/project
-```
-  - To alter the `project` property:
-```
-gcloud config set project 'PROJECT_ID'
-```
-When the settings for the SDK Shell are correct, log in to your Google Cloud account.
-```
-gcloud auth application-default login
-```
-Enable Compute Engine API, Artifact Registry API, Vertex AI API
+If necessary, enable Compute Engine API, Artifact Registry API, Vertex AI API
 ```
 gcloud services enable \
 compute.googleapis.com \
@@ -58,13 +42,9 @@ Refer to
 
 ### 3. Containerize training app
 #### Step 1: Create Cloud Storage Bucket
-Get ID of current Google Cloud project
-```
-gcloud config list --format 'value(core.project)'
-```
 Set `PROJECT_ID` environment variable
 ```
-PROJECT_ID = <enter project ID here>
+export PROJECT_ID =$(gcloud config get-value project)
 ```
 Create new bucket
 ```
