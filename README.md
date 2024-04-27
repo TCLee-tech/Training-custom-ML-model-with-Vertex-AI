@@ -15,7 +15,23 @@ gcloud components update
 gcloud components list
 ```
 
-Next, in the Google Cloud SDK Shell, log in to your Google Cloud account.
+Next, check if the currently active Google Cloud account configured in the Google Cloud SDK Shell is the correct one to use for authentication:
+```
+gcloud auth list
+```
+  - If you need to change to another Google Cloud account:
+```
+gcloud config set account 'ACCOUNT'
+```
+Also, check if the `project` property in the core section of the Cloud Shell is the correct one:
+```
+gcloud config list core/project
+```
+  - To alter the `project` property:
+```
+gcloud config set project 'PROJECT_ID'
+```
+When the settings for the SDK Shell are correct, log in to your Google Cloud account.
 ```
 gcloud auth application-default login
 ```
@@ -41,7 +57,7 @@ Refer to
 <hr>
 
 ### 3. Containerize training app
-Step 1: Create Cloud Storage Bucket
+#### Step 1: Create Cloud Storage Bucket
 Get ID of current Google Cloud project
 ```
 gcloud config list --format 'value(core.project)'
@@ -55,7 +71,7 @@ Create new bucket
 BUCKET='gs://$(PROJECT_ID)-bucket'
 gcloud storage buckets create $BUCKET --location=us-central1
 ```
-Step 2: Copy training dataset to Cloud Storage bucket
+#### Step 2: Copy training dataset to Cloud Storage bucket
 In this exercise, a sample dataset of flower images is used. The tar file is downloaded and untar.
 ```
 wget https://storage.googleapis.com/download.tensorflow.org/example_images/flower_photos.tgz
