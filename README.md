@@ -201,6 +201,8 @@ Create a Dockerfile at the same level as the training code folder:
 cd ..
 touch Dockerfile
 ```
+![Dockerfile](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/8596197c494f6aec6046fa56eb051067ba7c9094/Dockerfile.jpg)  
+
 Add commands to Dockerfile:
 ```
 FROM us-docker.pkg.dev/deeplearning-platform-release/gcr.io/tf2-cpu.2-15.py310
@@ -256,7 +258,7 @@ rm -r flower_photos
 delete flower_photos.tgz
 ```
 To verify, in Google Cloud console > Artifact Registry, select _flower_app_ repository to find _flower_image_ Docker container image.
-
+![Docker image in Artifact Registry](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/8596197c494f6aec6046fa56eb051067ba7c9094/docker%20image%20in%20artifact%20registry.jpg)
 
 
 
