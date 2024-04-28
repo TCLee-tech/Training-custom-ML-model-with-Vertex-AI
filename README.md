@@ -13,6 +13,7 @@ gcloud components update
 ```
 gcloud components list
 ```
+![gcloud components update](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/e1dec8eb5b950f433c3b799e9e9ab19cb0b7cf67/gcloud%20cli%20components%20update.jpg)
 
 Next, initialize, configure and authorize the gcloud CLI:
 ```
@@ -91,6 +92,8 @@ To upload a dataset from your local computer to Google Cloud Storage, use the sy
   - if upload is successful, an output "Completed files number of files/total number of files | xxx/xxxB" would be printed in the terminal.   
   - succeessful upload can also be verified from the Google Cloud Console > Cloud Storage > [Bucket] content.  
   - either the gcloud CLI or Cloud Shell can be used to upload a local dataset.
+
+![local storage to GCS](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/e1dec8eb5b950f433c3b799e9e9ab19cb0b7cf67/local%20computer%20to%20GCS.jpg)
 
 #### Step 3: Write training code
 Create new directory called `flowers` and change to this directory:
