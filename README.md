@@ -92,6 +92,7 @@ To upload a dataset from your local computer to Google Cloud Storage, use the sy
   - if upload is successful, an output "Completed files number of files/total number of files | xxx/xxxB" would be printed in the terminal.   
   - succeessful upload can also be verified from the Google Cloud Console > Cloud Storage > [Bucket] content.  
   - either the gcloud CLI or Cloud Shell can be used to upload a local dataset.
+  - Storage Object User role is needed for the upload and _storage.buckets.list_ permission is needed for upload using Google Cloud console. Refer to [Upload objects from a file system](https://cloud.google.com/storage/docs/uploading-objects)
 
 ![local storage to GCS](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/e1dec8eb5b950f433c3b799e9e9ab19cb0b7cf67/local%20computer%20to%20GCS.jpg)
 
