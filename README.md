@@ -1,8 +1,7 @@
 # Training-custom-ML-model-with-Vertex-AI
 
-Codelab: https://codelabs.developers.google.com/vertex-p2p-training#0  
-Video: https://youtu.be/VRQXIiNLdAk?si=-NXP-PwD-VeYdljQ
-
+Please refer to the linked [Codelab](https://codelabs.developers.google.com/vertex-p2p-training#0) and [Video](https://youtu.be/VRQXIiNLdAk?si=-NXP-PwD-VeYdljQ) for an introduction.  
+  
 ### 1. Enable APIs
 To use Google Cloud Command Line Interface(CLI) on your local computer to manage Google Cloud resources and services via command line instructions and scripts, install the Google Cloud CLI.   
   - Installation instructions are [here](https://cloud.google.com/sdk/docs/install).  
@@ -86,6 +85,12 @@ gcloud storage cp --recursive flower_photos $BUCKET
 Reference:   
   - [Discover object storage with the gcloud tool](https://cloud.google.com/storage/docs/discover-object-storage-gcloud)
   - [gcloud storage cp](https://cloud.google.com/sdk/gcloud/reference/storage/cp)
+
+To upload a dataset from your local computer to Google Cloud Storage, use the syntax `gcloud storage cp [source url] gs://[GCS bucket name]`. 
+  - use the full [source url path] from the "Properties" option of the right-click menu for the file/folder.
+  - if upload is successful, an output "Completed files number of files/total number of files | xxx/xxxB" would be printed in the terminal.   
+  - succeessful upload can also be verified from the Google Cloud Console > Cloud Storage > [Bucket] content.  
+  - either the gcloud CLI or Cloud Shell can be used to upload a local dataset.
 
 #### Step 3: Write training code
 Create new directory called `flowers` and change to this directory:
