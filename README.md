@@ -260,8 +260,11 @@ delete flower_photos.tgz
 To verify, in Google Cloud console > Artifact Registry, select _flower_app_ repository to find _flower_image_ Docker container image.
 ![Docker image in Artifact Registry](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/8596197c494f6aec6046fa56eb051067ba7c9094/docker%20image%20in%20artifact%20registry.jpg)
 
+<hr>
 
+### 5. Run custom training job on Vertex AI
 
+[Vertex AI ADK for Python - trainng codes guidance](https://cloud.google.com/python/docs/reference/aiplatform/latest/index.html)
 
 
 
