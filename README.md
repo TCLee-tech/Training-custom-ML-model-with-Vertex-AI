@@ -203,7 +203,7 @@ touch Dockerfile
 ```
 Add commands to Dockerfile:
 ```
-FROM gcr.io/deeplearning-platform-release/tf2-gpu.2-8
+FROM us-docker.pkg.dev/deeplearning-platform-release/gcr.io/tf2-cpu.2-15.py310
 
 WORKDIR /
 
@@ -213,27 +213,50 @@ COPY trainer /trainer
 # Sets up the entry point to invoke the trainer.
 ENTRYPOINT ["python", "-m", "trainer.task"]
 ```
+Note: the base image in above Dockerfile is a more updated version than the one in the Google video.  
+
 Reference:  
 [Create a custom container image for training](https://cloud.google.com/vertex-ai/docs/training/create-custom-container#create_a_dockerfile)   
 [List of Deep Learning containers](https://cloud.google.com/deep-learning-containers/docs/choosing-container#choose_a_container_image_type?utm_campaign=CDR_sar_aiml_ucaiplabs_011321&utm_source=external&utm_medium=web)  
 [How to Package Python Projects](https://packaging.python.org/en/latest/tutorials/packaging-projects/)  
 
 #### Build container and push to Artifact Registry  
-In the Cloud Shell (not gcloud CLI), obtain credentials for a Docker repository in us-central1 region:
+In the Cloud Shell (not gcloud CLI), obtain credentials for a Docker repository in the _us-central1_ region:
 ```
 gcloud auth configure-docker \
 us-central1-docker.pkg.dev
 ```
+Set three environment variables (PROJECT_ID, REPO_NAME, IMAGE_URL) for use when creating the Docker repo and running Docker commands:
+```
+PROJECT_ID=$(gcloud config list --format 'value(core.project)')   
+REPO_NAME='flower-app'  
+IMAGE_URL=us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/flower_image:latest
+```
+To verify,
+```
+echo $PROJECT_ID
+echo $REPO_NAME
+echo $IMAGE_URL
+```
 Then, create a Docker repo in Artifact Registry:
 ```
-REPO_NAME='flower-app'
 gcloud artifacts repositories create $REPO_NAME --repository-format=docker --location=us-central1 --description="Docker repository"
 ```
-Define a IMAGE_URL variable for use with Docker commands:
+Build the Docker container:
 ```
-IMAGE_URI=us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/flower_image:latest
+docker build ./ -t $IMAGE_URL
 ```
-Build Docker container
+Push built Docker container to Artifact Registry:
+```
+docker push $IMAGE_URL
+```
+Note: Cloud Shell is a 5GB VM. The TEnsorFlow base image is about 2.5GB. If Cloud Shell returns an error message to say that there is not enough space, you can delete the _flower_photos.tgz_ compressed file and the _flower_photos_ folder. The flowers dataset was uploaded to Google Cloud Storage bucket, and that will be the copy used for model training.
+```
+rm -r flower_photos
+delete flower_photos.tgz
+```
+To verify, in Google Cloud console > Artifact Registry, select _flower_app_ repository to find _flower_image_ Docker container image.
+
 
 
 
