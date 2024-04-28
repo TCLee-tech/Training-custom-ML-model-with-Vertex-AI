@@ -74,7 +74,7 @@ echo $BUCKET
 ```
 
 #### Step 2: Copy training dataset to Cloud Storage bucket
-In this exercise, a sample dataset of flower images is used. First, we download the tar file and untar it.
+In this exercise, a sample dataset of flower images is used. First, we download the .tgz source distribution file and untar it.
 ```
 wget https://storage.googleapis.com/download.tensorflow.org/example_images/flower_photos.tgz
 tar xvzf flower_photos.tgz
@@ -107,8 +107,8 @@ Create a `trainer` sub-directory and a `task.py` Python file where you'll add th
 mkdir trainer
 touch trainer/task.py
 ```
-Open `task.py` and paste the mode training code below.  
-You'll need to replace {your-gcs-bucket} with the name of the Cloud Storage bucket you just created.  
+Open `task.py` and paste the model training code below.  
+Replace {your-gcs-bucket} with the name of your Cloud Storage bucket.  
 ```
 cd trainer
 nano task.py
@@ -196,6 +196,45 @@ model.save(f'{BUCKET_ROOT}/model_output')
 ```   
 
 #### Step 4: Create Dockerfile  
+Create a Dockerfile at the same level as the training code folder:
+```
+cd ..
+touch Dockerfile
+```
+Add commands to Dockerfile:
+```
+FROM gcr.io/deeplearning-platform-release/tf2-gpu.2-8
+
+WORKDIR /
+
+# Copies the trainer code to the docker image.
+COPY trainer /trainer
+
+# Sets up the entry point to invoke the trainer.
+ENTRYPOINT ["python", "-m", "trainer.task"]
+```
+Reference:  
+[Create a custom container image for training](https://cloud.google.com/vertex-ai/docs/training/create-custom-container#create_a_dockerfile)   
+[List of Deep Learning containers](https://cloud.google.com/deep-learning-containers/docs/choosing-container#choose_a_container_image_type?utm_campaign=CDR_sar_aiml_ucaiplabs_011321&utm_source=external&utm_medium=web)  
+[How to Package Python Projects](https://packaging.python.org/en/latest/tutorials/packaging-projects/)  
+
+#### Build container and push to Artifact Registry  
+In the Cloud Shell (not gcloud CLI), obtain credentials for a Docker repository in us-central1 region:
+```
+gcloud auth configure-docker \
+us-central1-docker.pkg.dev
+```
+Then, create a Docker repo in Artifact Registry:
+```
+REPO_NAME='flower-app'
+gcloud artifacts repositories create $REPO_NAME --repository-format=docker --location=us-central1 --description="Docker repository"
+```
+Define a IMAGE_URL variable for use with Docker commands:
+```
+IMAGE_URI=us-central1-docker.pkg.dev/$PROJECT_ID/$REPO_NAME/flower_image:latest
+```
+Build Docker container
+
 
 
 
