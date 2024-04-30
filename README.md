@@ -88,7 +88,7 @@ Reference:
   - [gcloud storage cp](https://cloud.google.com/sdk/gcloud/reference/storage/cp)
 
 To upload a dataset from your local computer to Google Cloud Storage, use the syntax `gcloud storage cp [source url] gs://[GCS bucket name]`. 
-  - use the full [source url path] from the "Properties" option of the right-click menu for the file/folder.
+  - for a Windows desktop, use the full [source url path] from the "Properties" option of the right-click menu for the file/folder.
   - if upload is successful, an output "Completed files number of files/total number of files | xxx/xxxB" would be printed in the terminal.   
   - succeessful upload can also be verified from the Google Cloud Console > Cloud Storage > [Bucket] content.  
   - either the gcloud CLI or Cloud Shell can be used to upload a local dataset.
@@ -113,7 +113,7 @@ Replace {your-gcs-bucket} with the name of your Cloud Storage bucket.
 cd trainer
 nano task.py
 ```
-Custom mode training code:
+Custom model training code:
 ```
 import tensorflow as tf
 import numpy as np
@@ -215,7 +215,7 @@ COPY trainer /trainer
 # Sets up the entry point to invoke the trainer.
 ENTRYPOINT ["python", "-m", "trainer.task"]
 ```
-Note: the base image in above Dockerfile is a more updated version than the one in the Google video.  
+Note: the base image in the above Dockerfile is a more current version than the one in the Google codelab.  
 
 Reference:  
 [Create a custom container image for training](https://cloud.google.com/vertex-ai/docs/training/create-custom-container#create_a_dockerfile)   
@@ -252,7 +252,7 @@ Push built Docker container to Artifact Registry:
 ```
 docker push $IMAGE_URL
 ```
-Note: Cloud Shell is a 5GB VM. The TEnsorFlow base image is about 2.5GB. If Cloud Shell returns an error message to say that there is not enough space, you can delete the _flower_photos.tgz_ compressed file and the _flower_photos_ folder. The flowers dataset was uploaded to Google Cloud Storage bucket, and that will be the copy used for model training.
+Note: Cloud Shell is a 5GB VM. The TensorFlow container base image is about 2.5GB. If Cloud Shell returns an error message about insufficient space, you can delete the _flower_photos.tgz_ compressed file and the _flower_photos_ folder. The flowers dataset was uploaded to Google Cloud Storage bucket, and that will be the copy used for model training.
 ```
 rm -r flower_photos
 delete flower_photos.tgz
