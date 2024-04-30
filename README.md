@@ -262,7 +262,7 @@ To verify, in Google Cloud console > Artifact Registry, select _flower_app_ repo
 
 <hr>
 
-### 5. Run custom training job on Vertex AI
+#### 5. Run custom training job on Vertex AI
 
 [Vertex AI ADK for Python - trainng codes guidance](https://cloud.google.com/python/docs/reference/aiplatform/latest/index.html)
 
