@@ -280,7 +280,9 @@ gcloud ai custom-jobs create \
 --region=us-central1 \
 --worker-pool-spec=replica-count=1,machine-type='n1-standard-8',accelerator-type='NVIDIA_TESLA_V100',accelerator-count=1,container-image-uri=$IMAGE_URL
 ```
-Refer to [gcloud ai custom-jobs create command](https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/create) for values to key flags.
+Refer to [gcloud ai custom-jobs create command](https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/create) for values to key flags.  
+
+![gcloud ai custom-jobs create command](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/7992f815f94f241c6672772bdb00904cd7ba1efb/gcloud%20ai%20custom-jobs%20create%20command.jpg)
  
 If the following error message is encountered:
 > ERROR: (gcloud.ai.custom-jobs.create) RESOURCE_EXHAUSTED: The following quota metrics exceed quota limits: aiplatform.googleapis.com/custom_model_training_nvidia_v100_gpus   
@@ -292,7 +294,7 @@ gcloud ai custom-jobs create \
 --region=us-central1 \
 --worker-pool-spec=replica-count=1,machine-type='n1-standard-8',container-image-uri=$IMAGE_URL
 ```
-To verify and view progress of custom training job, use the following commands from the Cloud Shell
+To verify and view progress of your custom training job, use the following commands from the Cloud Shell
 ```
 gcloud ai custom-jobs describe projects/xxxx/locations/us-central1/customJobs/xxx
 ```
@@ -300,12 +302,18 @@ or
 ```
 gcloud ai custom-jobs stream-logs projects/xxxx/locations/us-central1/customJobs/xxx
 ```
-
-
-Reference:
+References:
 
 [gcloud ai custom-jobs describe command](https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/describe)   
 [gcloud ai custom-jobs stream-logs command](https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/stream-logs)  
+
+
+In Google Cloud console, navigate to Vertex AI > "Training" under MODEL DEVELOPMENT > "CUSTOM JOBS" tab to verify status of training:
+![custom training job](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/7992f815f94f241c6672772bdb00904cd7ba1efb/custom%20training%20job.jpg)   
+
+On successful completion of custom ML training:
+![custom training job completed](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/7992f815f94f241c6672772bdb00904cd7ba1efb/custom%20training%20job%20completed.jpg)  
+
 
 
 
