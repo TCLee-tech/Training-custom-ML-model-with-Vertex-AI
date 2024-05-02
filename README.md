@@ -1,4 +1,13 @@
 # Training-custom-ML-model-with-Vertex-AI
+Workflow for using a custom dataset to train a custom ML model.
+  - a custom dataset for training a ML model can be curated on your own computer before uploading to the cloud.
+  - an image dataset of flowers is used as an example in this repo
+  - the ML model groups images into categories
+  - at least 1,000 training samples per category is recommended
+  - clicking through cells in a Jupyter notebook is fine for initial experimentation. This workflow allows the use of a custom Python training script and a custom ML container.
+  - model endpoint can serve predictions
+  - can scale up, to zero, or torn down as needed.
+  - adaptable for scripting
 
 Please refer to the linked [Codelab](https://codelabs.developers.google.com/vertex-p2p-training#0) and [Video](https://youtu.be/VRQXIiNLdAk?si=-NXP-PwD-VeYdljQ) for an introduction.  
   
