@@ -4,7 +4,7 @@ Workflow for using a custom dataset to train a custom ML model.
   - an image dataset of flowers is used as an example in this repo
   - the ML model groups images into categories
   - at least 1,000 training samples per category is recommended
-  - clicking through cells in a Jupyter notebook is fine for initial experimentation. This workflow allows the use of a custom Python training script and a custom ML container.
+  - clicking through cells in a Jupyter notebook is fine for initial experimentation. This workflow allows the use of a custom Python training code and a custom ML container.
   - model endpoint can serve predictions
   - can scale up, to zero, or torn down as needed.
   - adaptable for scripting
@@ -203,6 +203,7 @@ history = model.fit(
 # SAVE MODEL
 model.save(f'{BUCKET_ROOT}/model_output')
 ```   
+To convert custom model codes in a Jupyter notebook into a Python file, use `jupyter nbconvert task.ipynb --to python`. Will get `task.py`
 
 #### Step 4: Create Dockerfile  
 Create a Dockerfile at the same level as the training code folder:
@@ -314,7 +315,8 @@ In Google Cloud console, navigate to Vertex AI > "Training" under MODEL DEVELOPM
 On successful completion of custom ML training:
 ![custom training job completed](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/7992f815f94f241c6672772bdb00904cd7ba1efb/custom%20training%20job%20completed.jpg)  
 
-
+The trained model is saved to Google Cloud Storage, according to training codes:
+![trained model in GCS]()
 
 
 
