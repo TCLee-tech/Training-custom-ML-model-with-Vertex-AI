@@ -315,8 +315,8 @@ In Google Cloud console, navigate to Vertex AI > "Training" under MODEL DEVELOPM
 On successful completion of custom ML training:
 ![custom training job completed](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/7992f815f94f241c6672772bdb00904cd7ba1efb/custom%20training%20job%20completed.jpg)  
 
-The trained model is saved to Google Cloud Storage, according to training codes:
-![trained model in GCS]()
+The trained model is saved to Google Cloud Storage, as written in Python training codes:
+![trained model in GCS](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/03447a946dd446aa544e548fc85cb6c270ea4cdc/trained%20model%20in%20GCS.jpg)
 
 
 
