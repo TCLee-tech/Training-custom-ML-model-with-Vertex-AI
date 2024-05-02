@@ -66,7 +66,7 @@ In the Cloud Shell session window launched:
 #### Step 1: Create Cloud Storage Bucket
 Set `PROJECT_ID` environment variable
 ```
-export PROJECT_ID =$(gcloud config get-value project)
+export PROJECT_ID=$(gcloud config get-value project)
 ```
 Create new bucket
 ```
@@ -231,7 +231,7 @@ Reference:
 [List of Deep Learning containers](https://cloud.google.com/deep-learning-containers/docs/choosing-container#choose_a_container_image_type?utm_campaign=CDR_sar_aiml_ucaiplabs_011321&utm_source=external&utm_medium=web)  
 [How to Package Python Projects](https://packaging.python.org/en/latest/tutorials/packaging-projects/)  
 
-#### Build container and push to Artifact Registry  
+#### Step 5: Build container and push to Artifact Registry  
 In the Cloud Shell (not gcloud CLI), obtain credentials for a Docker repository in the _us-central1_ region:
 ```
 gcloud auth configure-docker \
@@ -271,9 +271,42 @@ To verify, in Google Cloud console > Artifact Registry, select _flower_app_ repo
 
 <hr>
 
-#### 5. Run custom training job on Vertex AI
+### 5. Run a custom training job on Vertex AI
 
-[Vertex AI ADK for Python - trainng codes guidance](https://cloud.google.com/python/docs/reference/aiplatform/latest/index.html)
+To run the custom training with GPU (e.g. NVIDIA_TESLA_V100),
+```
+gcloud ai custom-jobs create \
+--display-name='flower-sdk-job' \
+--region=us-central1 \
+--worker-pool-spec=replica-count=1,machine-type='n1-standard-8',accelerator-type='NVIDIA_TESLA_V100',accelerator-count=1,container-image-uri=$IMAGE_URL
+```
+Refer to [gcloud ai custom-jobs create command](https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/create) for values to key flags.
+ 
+If the following error message is encountered:
+> ERROR: (gcloud.ai.custom-jobs.create) RESOURCE_EXHAUSTED: The following quota metrics exceed quota limits: aiplatform.googleapis.com/custom_model_training_nvidia_v100_gpus   
+
+you can also run the custom ML training without GPU:
+```
+gcloud ai custom-jobs create \
+--display-name='flower-sdk-job' \
+--region=us-central1 \
+--worker-pool-spec=replica-count=1,machine-type='n1-standard-8',container-image-uri=$IMAGE_URL
+```
+To verify and view progress of custom training job, use the following commands from the Cloud Shell
+```
+gcloud ai custom-jobs describe projects/xxxx/locations/us-central1/customJobs/xxx
+```
+or   
+```
+gcloud ai custom-jobs stream-logs projects/xxxx/locations/us-central1/customJobs/xxx
+```
+
+
+Reference:
+
+[gcloud ai custom-jobs describe command](https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/describe)   
+[gcloud ai custom-jobs stream-logs command](https://cloud.google.com/sdk/gcloud/reference/ai/custom-jobs/stream-logs)  
+
 
 
 
