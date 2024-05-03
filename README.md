@@ -333,13 +333,18 @@ Please refer to linked [video](https://youtu.be/-9fU1xwBQYU?si=7BY-2FLRO987YB_9)
 <hr>
 
 ### 1. Upload model to Vertex AI's Model Registry
-The trained model artifact is in a folder `/model_output` in Google Cloud Storage. It needs to be packaged with a pre-built container that supports the TensorFlow runtime (note: a custom container stored in Artifact Registry can be used too). The packaged container image needs to be uploaded to Vertex AI's Model Registry.
+The trained model artifact is in a folder `/model_output` in Google Cloud Storage. It needs to be packaged with a pre-built container that supports the TensorFlow runtime (note: a custom container stored in Artifact Registry can be used too). The packaged container image needs to be uploaded to Vertex AI's Model Registry.   
+
+First, set default region for AI:
+```
+gcloud config set ai/region us-central1
+```
+Then, run
 ```
 gcloud ai models upload \
 --display-name=flowers \
 --container-image-uri="us-docker.pkg.dev/vertex-ai/prediction/tf2-cpu.2-9:latest" \
---artifact-uri=${BUCKET}/model_output \
---region=us-central1
+--artifact-uri=${BUCKET}/model_output
 ```
 References:   
 [gcloud ai models upload](https://cloud.google.com/sdk/gcloud/reference/ai/models/upload)  
@@ -348,11 +353,27 @@ References:
 
 To verify,
 ```
-gcloud ai models list --region=us-central1
+gcloud ai models list
 ```
 Reference:
 [gcloud ai models list](https://cloud.google.com/sdk/gcloud/reference/ai/models/list)
 
+Take note of the `MODEL_ID`. We need it for model deployment to endpoint: 
+
+![model_id](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/c48f90e3a8595b4753902e9352160ed7cc9c7466/gcloud%20ai%20models%20list.jpg)  
+
 To verify in Google Cloud console, navigate to Vertex AI > Model Registry under MODEL DEVELOPMENT:  
 
-![model uploaded to Vertex AI Model Registry](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/7c2e6ad1564421505c394e2a00609ba67fac1f73/model%20uploaded%20to%20Model%20Registry.jpg)
+![model uploaded to Vertex AI Model Registry](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/7c2e6ad1564421505c394e2a00609ba67fac1f73/model%20uploaded%20to%20Model%20Registry.jpg)   
+
+<hr>
+
+### 2. Create model serving endpoint
+```
+gcloud ai endpoints create \
+--display-name=my_endpoint
+```
+Reference:  
+[gcloud ai endpoints create](https://cloud.google.com/sdk/gcloud/reference/ai/endpoints/create)    
+
+Take note of the Vertex AI endpoint:
