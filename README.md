@@ -318,8 +318,36 @@ On successful completion of custom ML training:
 The trained model is saved to Google Cloud Storage, as written in Python training codes:
 ![trained model in GCS](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/03447a946dd446aa544e548fc85cb6c270ea4cdc/trained%20model%20in%20GCS.jpg)
 
+<hr>
 
+:rainbow::rainbow::rainbow::rainbow::rainbow::fountain::fountain::fountain::rainbow::rainbow::rainbow::rainbow::rainbow:
 
+# Getting predictions from custom trained model
 
+Instructions below use the trained model artifact in Google Cloud Storage, from the steps above.
 
+Please refer to linked [video](https://youtu.be/-9fU1xwBQYU?si=7BY-2FLRO987YB_9) and [codelab](https://codelabs.developers.google.com/vertex-p2p-predictions#0)
+
+<hr>
+
+### 1. Upload model to Vertex AI's Model Registry
+The trained model artifact is in a folder `/model_output` in Google Cloud Storage. It needs to be packaged with a pre-built container that supports the TensorFlow runtime (note: a custom container stored in Artifact Registry can be used too). The packaged container image needs to be uploaded to Vertex AI's Model Registry.
+```
+gcloud ai models upload \
+--display-name=flowers \
+--container-image-uri="us-docker.pkg.dev/vertex-ai/prediction/tf2-cpu.2-9:latest" \
+--artifact-uri=${BUCKET}/model_output \
+--region=us-central1
+```
+References:   
+[gcloud ai models upload](https://cloud.google.com/sdk/gcloud/reference/ai/models/upload)  
+[list of pre-built container images for Vertex AI prediction](https://console.cloud.google.com/artifacts/docker/vertex-ai/us/prediction)  
+  - supported runtimes: TensorFlow, scikit-learn, pytorch
+
+To verify,
+```
+gcloud ai models list --region=us-central1
+```
+Reference:
+[gcloud ai models list](https://cloud.google.com/sdk/gcloud/reference/ai/models/list)
  
