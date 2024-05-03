@@ -355,7 +355,7 @@ To verify,
 ```
 gcloud ai models list
 ```
-Reference:
+Reference:   
 [gcloud ai models list](https://cloud.google.com/sdk/gcloud/reference/ai/models/list)
 
 Take note of the `MODEL_ID`. We need it for model deployment to endpoint: 
@@ -373,7 +373,42 @@ To verify in Google Cloud console, navigate to Vertex AI > Model Registry under 
 gcloud ai endpoints create \
 --display-name=my_endpoint
 ```
-Reference:  
+Reference:   
 [gcloud ai endpoints create](https://cloud.google.com/sdk/gcloud/reference/ai/endpoints/create)    
 
 Take note of the Vertex AI endpoint:
+
+![gcloud ai endpoints create](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/13e401823a5533d18e248017d8e86fa6ce7627ce/vertex%20AI%20endpoint.jpg)  
+
+To verify in Google Cloud console, navigate to Vertex AI > Online prediction under DEPLOY AND USE:
+
+![Vertex AI Online prediction](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/13e401823a5533d18e248017d8e86fa6ce7627ce/Vertex%20AI%20online%20prediction%20endpoint.jpg)    
+
+<hr>  
+
+### 3. Deploy trained model to Vertex AI endpoint  
+Syntax:
+```
+gcloud ai endpoints deploy-model [endpoint_ID] \
+--model=[MODEL_ID] \
+--display-name=my_deployed_model \
+--machine-type="n1-standard-4" \
+--accelerator=count=0 \
+--min-replica-count=0 \
+--max-replica-count=0
+```
+
+Example:   
+```
+gcloud ai endpoints deploy-model 2816691504641212416 \
+--model=7621868479812993024 \
+--display-name=my_deployed_model \
+--machine-type="n1-standard-4" \
+--accelerator=count=0 \
+--min-replica-count=0 \
+--max-replica-count=0
+```   
+Reference:  
+[gcloud ai endpoints deploy-model](https://cloud.google.com/sdk/gcloud/reference/ai/endpoints/deploy-model)   
+  - There are GPU accelerator, auto-scaling and traffic-spliting options for model deployment.
+
