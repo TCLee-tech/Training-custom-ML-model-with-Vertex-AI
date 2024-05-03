@@ -368,7 +368,7 @@ To verify in Google Cloud console, navigate to Vertex AI > Model Registry under 
 
 <hr>
 
-### 2. Create model serving endpoint
+### 2. Create Vertex AI model serving endpoint
 ```
 gcloud ai endpoints create \
 --display-name=my_endpoint
@@ -386,7 +386,7 @@ To verify in Google Cloud console, navigate to Vertex AI > Online prediction und
 
 <hr>  
 
-### 3. Deploy trained model to Vertex AI endpoint  
+### 3. Deploy trained model to endpoint  
 Syntax:
 ```
 gcloud ai endpoints deploy-model [endpoint_ID] \
