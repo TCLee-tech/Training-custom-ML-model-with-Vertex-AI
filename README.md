@@ -412,3 +412,32 @@ Reference:
 [gcloud ai endpoints deploy-model](https://cloud.google.com/sdk/gcloud/reference/ai/endpoints/deploy-model)   
   - There are GPU accelerator, auto-scaling and traffic-spliting options for model deployment.
 
+On successful deployment of trained model to Vertex AI endpoint, in Google Cloud console and in Cloud Shell, you should see:  
+
+![model deployed to Vertex AI endpoint](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/6dd4a691f444d25acd3ca9279e9c7c5baca4bce8/model%20deployed%20to%20vertex%20AI%20endpoint.jpg)  
+
+<hr>
+
+### 4. Serve predictions
+You are now ready to test and serve online or batch predictions.  
+
+  - create a JSON object file `input.json` to hold your data
+    
+  - use `curl` for testing
+    ```
+    ENDPOINT_ID="2816691504641212416"
+    PROJECT_ID="123456789"
+    INPUT_DATA_FILE="INPUT-JSON"
+    
+    curl \
+    -X POST \
+    -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+    -H "Content-Type: application/json" \
+    https://us-central1-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/us-central1/endpoints/${ENDPOINT_ID}:predict \
+    -d "@${INPUT_DATA_FILE}"
+    ```
+    
+  - use [gcloud ai endpoints predict](https://cloud.google.com/sdk/gcloud/reference/ai/endpoints/predict) for online prediction
+
+
+
