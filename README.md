@@ -312,10 +312,12 @@ References:
 In Google Cloud console, navigate to Vertex AI > "Training" under MODEL DEVELOPMENT > "CUSTOM JOBS" tab to verify status of training:
 ![custom training job](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/7992f815f94f241c6672772bdb00904cd7ba1efb/custom%20training%20job.jpg)   
 
-On successful completion of custom ML training:
+On successful completion of custom ML training:  
+
 ![custom training job completed](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/7992f815f94f241c6672772bdb00904cd7ba1efb/custom%20training%20job%20completed.jpg)  
 
-The trained model is saved to Google Cloud Storage, as written in Python training codes:
+The trained model is saved to Google Cloud Storage, as written in Python training codes:  
+
 ![trained model in GCS](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/03447a946dd446aa544e548fc85cb6c270ea4cdc/trained%20model%20in%20GCS.jpg)
 
 <hr>
@@ -350,4 +352,7 @@ gcloud ai models list --region=us-central1
 ```
 Reference:
 [gcloud ai models list](https://cloud.google.com/sdk/gcloud/reference/ai/models/list)
- 
+
+To verify in Google Cloud console, navigate to Vertex AI > Model Registry under MODEL DEVELOPMENT:  
+
+![model uploaded to Vertex AI Model Registry](https://github.com/TCLee-tech/Training-custom-ML-model-with-Vertex-AI/blob/7c2e6ad1564421505c394e2a00609ba67fac1f73/model%20uploaded%20to%20Model%20Registry.jpg)
